@@ -17,7 +17,28 @@ var chatbot = require('./routes/chatbot');
 var app = express();
 
 //db
-mongoose.connect('mongodb://localhost/chatbot');
+mongoose.connect('mongodb://localhost/inventory-chatbot');
+
+var SchemaTypes = mongoose.Schema.Types;
+
+var productSchema = new mongoose.Schema({
+  name: String,
+  description: String,
+  price: String,
+  msrp: String,
+  stock: Number
+},
+{
+  strict: false
+});
+
+var Product = mongoose.model('Product', productSchema);
+
+Product.count({}, (err, count) => {
+  if (count==0) {
+    Product.create(require('./sampledb').products);
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
