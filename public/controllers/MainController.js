@@ -28,7 +28,7 @@ app.controller('MainController', function($scope, $http){
     $http.post('/chat/send', chatData)
       //handle success
       .success(function(data) {
-        botData.message = data.message;
+        botData.message = data;
         $scope.chat.push(botData);
       })
       //handle error

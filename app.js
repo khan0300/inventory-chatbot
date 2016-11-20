@@ -19,20 +19,7 @@ var app = express();
 //db
 mongoose.connect('mongodb://localhost/inventory-chatbot');
 
-var SchemaTypes = mongoose.Schema.Types;
-
-var productSchema = new mongoose.Schema({
-  name: String,
-  description: String,
-  price: String,
-  msrp: String,
-  stock: Number
-},
-{
-  strict: false
-});
-
-var Product = mongoose.model('Product', productSchema);
+var Product = require('./models/product');
 
 Product.count({}, (err, count) => {
   if (count==0) {

@@ -12,7 +12,8 @@ UPDATE: ADD A SESSION ID
 var express = require('express');
 var router = express.Router();
 var apiai = require('apiai');
-var app = apiai("<add your api key here!>");
+var app = apiai("");
+var Product = require('../models/product');
 
 
 //send message to chatbot
@@ -25,7 +26,33 @@ router.post('/send', function(req, res) {
   var request = app.textRequest(data.message, options);
 
   request.on('response', function(response){
-    res.status(200).json({status: true, message: response.result.fulfillment.speech});
+
+    switch(response.result.metadata.intentName) {
+      case "ask about product availability":
+        Product.findOne({name: new RegExp('^'+response.result.parameters.product+'$', "i")}, (err, product)=>{
+          if (err || !product) res.send("Couldn't find a product with that name.");
+          else res.send("We have " + product.stock + " of the " + product.name + " in stock.");
+        });
+        break;
+
+      case "ask for description":
+        Product.findOne({name: new RegExp('^'+response.result.parameters.product+'$', "i")}, (err, product)=>{
+          if (err || !product) res.send("Couldn't find a product with that name.");
+          else res.send(product.description);
+        });
+        break;
+
+      case "ask about product cost":
+        Product.findOne({name: new RegExp('^'+response.result.parameters.product+'$', "i")}, (err, product)=>{
+          if (err || !product) res.send("Couldn't find a product with that name.");
+          else res.send("The " + product.name + " costs " + product.price + ".");
+        });
+        break;
+
+      default:
+        res.send(response.result.fulfillment.speech);
+    }
+
   });
 
   request.on('error', function(error){

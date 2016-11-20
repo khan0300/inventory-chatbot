@@ -1,0 +1,25 @@
+var mongoose = require('mongoose');
+var mongoosastic = require('mongoosastic');
+
+var productSchema = new mongoose.Schema({
+  name: {type: String, es_indexed:true},
+  description: String,
+  price: String,
+  msrp: String,
+  stock: Number
+},
+{
+  strict: false
+});
+
+// var elasticsearch = require('elasticsearch');
+// var esClient = new elasticsearch.Client({
+//   host: 'localhost:9200',
+//   log: 'trace'
+// });
+
+// productSchema.plugin(mongoosastic, {
+// 	esClient: esClient
+// });
+
+module.exports = mongoose.model('Product', productSchema);;
