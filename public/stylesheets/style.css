@@ -10,6 +10,10 @@ body {
   background: linear-gradient(to left, #4ECDC4 , #556270); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.panel {
+	box-shadow: 0 1px 3px rgba(13,26,44,0.16),0 15px 25px rgba(13,26,44,0.24);
+}
+
 a {
   color: #00B7FF;
 }
@@ -18,12 +22,12 @@ h1 {
   text-align: center;
 }
 
-li {
+li.message {
     color: black;
 }
-li:nth-child(odd) {
+li.message:nth-child(odd) {
     color: #777;
 }
-li:nth-child(even) {
+li.message:nth-child(even) {
     color: blue;
 }

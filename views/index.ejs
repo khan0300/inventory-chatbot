@@ -11,6 +11,8 @@ the chatbot.
     <title>Model Car Store ChatBot!</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
     <script src="../app.js"></script>
@@ -20,7 +22,7 @@ the chatbot.
 <body ng-app="ChatBot">
     <div class="container">
         
-        <div class="panel panel-default" style="box-shadow: 0 1px 3px rgba(13,26,44,0.16),0 15px 25px rgba(13,26,44,0.24);" ng-controller="MainController as main">
+        <div class="panel panel-default" ng-controller="MainController as main">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-2">
@@ -37,7 +39,7 @@ the chatbot.
             </div>
             <div class="panel-body">
                 <div style="white-space: pre-wrap;">
-                    <li ng-repeat="message in chat">{{message.message}} - {{message.author}}</li>
+                    <li class="message" ng-repeat="message in chat">{{message.message}} - {{message.author}}</li>
                 </div>
             </div>
             <div class="panel-footer">
@@ -52,10 +54,22 @@ the chatbot.
 
             </div>
         </div>
+        <div class="row">
+            <div class="panel panel-body panel-default col-sm-4 col-sm-offset-4">
+                <p>Say things to the bot like:</p>
+                <ul>
+                    <li>hello!</li>
+                    <li>what do you sell?</li>
+                    <li>how many 1939 cadillac limousines do you have?</li>
+                    <li>tell me about the 1995 Honda Civic.</li>
+                    <li>how much does the 1998 Chrysler Plymouth Prowler cost?</li>
+                    <li>I will buy a 1948 Porsche 356-A Roadster.</li>
+                </ul>
+            </div>
+        </div>
 
     </div>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
 
 </body>
 
