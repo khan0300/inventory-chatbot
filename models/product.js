@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var mongoosastic = require('mongoosastic');
 
 var productSchema = new mongoose.Schema({
   name: {type: String, es_indexed:true},
@@ -21,5 +20,7 @@ var productSchema = new mongoose.Schema({
 // productSchema.plugin(mongoosastic, {
 // 	esClient: esClient
 // });
+
+productSchema.plugin(require('mongoose-simple-random'));
 
 module.exports = mongoose.model('Product', productSchema);;

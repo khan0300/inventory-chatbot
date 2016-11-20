@@ -8,7 +8,7 @@ the chatbot.
 <html>
 
 <head>
-    <title>ChatBot</title>
+    <title>Model Car Store ChatBot!</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
@@ -18,26 +18,40 @@ the chatbot.
 </head>
 
 <body ng-app="ChatBot">
-    <h1>ChatBot</h1>
-    <div ng-controller="MainController as main">
-        <div class="container">
-            <div class="well">
-                <li ng-repeat="message in chat">{{message.message}} - {{message.author}}</li>
+    <div class="container">
+        
+        <div class="panel panel-default" style="box-shadow: 0 1px 3px rgba(13,26,44,0.16),0 15px 25px rgba(13,26,44,0.24);" ng-controller="MainController as main">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img class="pull-right" src="/img/Machovka-car-Mazda-3.png" style="max-height: 50px;">
+                    </div>
+                    <div class="col-xs-8">
+                        <h1 style="margin-top: 0" >Model Car Store ChatBot!</h1>
+                        <p class="text-center">Talk to a RoboSalesman!</p>
+                    </div>
+                    <div class="col-xs-2">
+                        <img src="/img/classic-car.png" style="max-height: 50px;">
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div style="white-space: pre-wrap;">
+                    <li ng-repeat="message in chat">{{message.message}} - {{message.author}}</li>
+                </div>
+            </div>
+            <div class="panel-footer">
+              <form>
+                <div class="input-group">
+                    <input ng-model="usertext" type="text" class="form-control" placeholder="Say something..."></input>
+                    <span class="input-group-btn">
+                      <button ng-click="sendText()" class="btn btn-primary" type="submit">Send</button>
+                    </span>
+                </div>
+              </form>
+
             </div>
         </div>
-        <div class="container">
-          <form>
-            <div class="input-group">
-                <input ng-model="usertext" type="text" class="form-control" placeholder="Say something..."></input>
-                <span class="input-group-btn">
-                  <button ng-click="sendText()" class="btn btn-primary" type="submit">Send</button>
-                </span>
-            </div>
-          </form>
-
-        </div>
-
-
 
     </div>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>

@@ -21,18 +21,30 @@ router.post('/send', function(req, res) {
   var data = req.body;
   var options = {
     sessionId: "Enter a 36 character ID"
-  }
+  };
 
   var request = app.textRequest(data.message, options);
 
   request.on('response', function(response){
 
     var productName = response.result.parameters.product;
+    if (productName) {
+      var singularName = productName.substring(0, productName.length-1);
+      var findOneQuery = { $or: [{name: new RegExp('^'+productName+'$', "i")}, {name: new RegExp('^'+singularName+'$', "i")}] };
+    }
 
     switch(response.result.metadata.intentName) {
 
+      case "ask what is sold":
+        //list 10 random records
+        Product.findRandom({}, {}, {limit:10}, (err,products)=>{
+          if (err || !products) res.send("No products found in the database!");
+          else res.send("I sell model cars including:\n"+products.map((p)=>p.name).join("\n"));
+        });
+        break;
+
       case "ask about product availability":
-        Product.findOne({name: new RegExp('^'+productName+'$', "i")}, (err, product)=>{
+        Product.findOne(findOneQuery, (err, product)=>{
           if (err || !product) res.send("Couldn't find a product called \""+productName+"\".");
           else res.send("We have " + product.stock + " of the " + product.name + " in stock.");
         });
@@ -41,7 +53,7 @@ router.post('/send', function(req, res) {
       case "ask for description":
         Product.findOne({name: new RegExp('^'+productName+'$', "i")}, (err, product)=>{
           if (err || !product) res.send("Couldn't find a product called \""+productName+"\".");
-          else res.send(product.description);
+          else res.send(product.name+": "+product.description+" We have "+product.stock+" of this product in stock. It costs $"+product.price);
         });
         break;
 
@@ -64,7 +76,7 @@ router.post('/send', function(req, res) {
             else {
               product.stock -= 1;
               product.save();
-              res.send("Thanks for purchasing the " + product.name + "!");
+              res.send("Thanks for purchasing the " + product.name + "! We have "+product.stock+" of it left in stock.");
             }
           }
         });
